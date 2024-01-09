@@ -16,4 +16,7 @@ target_link_libraries(app PRIVATE Core)
 add_subdirectory(usb)
 target_link_libraries(app PRIVATE usb)
 
+add_subdirectory(uswift)
+target_link_libraries(app PRIVATE swiftCore)
+
 include(flash.cmake)

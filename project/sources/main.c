@@ -11,7 +11,7 @@
 
 void write() {
     //int32_t swift = test(40, 2);
-    wchar_t text[10] = L"echo v"; //L"\r\n"
+    wchar_t text[8] = L"echo v"; //L"\r\n"
     //text[5] = swift;
     text[6] = 13;
     text[7] = 10;

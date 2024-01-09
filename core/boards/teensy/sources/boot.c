@@ -5,7 +5,13 @@ void clang() {}
 extern void _reset_handler(void);
 extern uint32_t _flashimagelen;
 
-__attribute__((section(".boot_hdr.boot_data")))
+__attribute__((section(".boot.vectors"), used))
+const uint32_t vector_table[2] = {
+    0x20010000, // 64K DTCM for boot, ResetHandler configures stack after ITCM/DTCM setup
+    (uint32_t)&_reset_handler
+};
+
+__attribute__((section(".boot.bootdata")))
 const uint32_t _boot_data[3] = {
 	0x60000000,                    /* boot start location */
 	(uint32_t)&_flashimagelen,
@@ -15,19 +21,19 @@ const uint32_t _boot_data[3] = {
 __attribute__ ((section(".csf"), used))
 const uint32_t _hab_csf[768];	 /* placeholder for HAB signature */
 
-__attribute__((section(".boot_hdr.ivt")))
+__attribute__((section(".boot.ivt")))
 const uint32_t _image_vector_table[8] = {
-	0x432000D1,                    /* IVT Header */
-	(uint32_t)&_reset_handler,     /* Image Entry Function */
-	0,                             /* Reserved = 0 */
-	0,                             /* Address where DCD information is stored */
-	(uint32_t)_boot_data,          /* Address where BOOT Data Structure is stored */
-	(uint32_t)&_image_vector_table, /* Pointer to IVT Self (absolute address) */
-	(uint32_t)_hab_csf,            /* Address where CSF file is stored */
-	0                              /* Reserved = 0 */
+	0x402000D1,                     // header
+    (uint32_t)vector_table,         // docs are wrong, needs to be vec table, not start addr
+    0,                              // reserved
+    0,                              // dcd
+	(uint32_t)_boot_data,           // abs address of boot data
+	(uint32_t)&_image_vector_table, //self
+	(uint32_t)_hab_csf,             // command sequence file
+    0                               // reserved
 };
 
-__attribute__ ((section(".boot_hdr.conf"), used))
+__attribute__ ((section(".boot.conf"), used))
 uint32_t _flexspi_config[128] = {
 	0x42464346, // Tag				0x00
 	0x56010000,	// Version

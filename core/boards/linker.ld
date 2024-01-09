@@ -5,40 +5,41 @@ MEMORY {
     flash (rwx): ORIGIN = __flash, LENGTH = __flash_size
 }
 
-ENTRY(_reset_handler) /*_reset_handler*/
+ENTRY(_reset_handler)
 
 SECTIONS {
     __stack = ORIGIN(sram) + LENGTH(sram);
 
-    .boot : {
-        KEEP(*(.boot_hdr.conf))
-		. = ORIGIN(flash) + 0x1000;
-		KEEP(*(.boot_hdr.ivt))
-		KEEP(*(.boot_hdr.boot_data))
-		. = ALIGN(1024);
-		KEEP(*(.startup))
-    } > flash
+	.ARM.exidx : {
+		*(.ARM.exidx* .ARM.extab.text*)
+	} > itcm AT > flash
 
+    .boot : {
+        KEEP(*(.boot.conf))
+		/*FILL(0x00)*/
+		. = ORIGIN(flash) + 0x1000;
+		KEEP(*(.boot.ivt))
+		KEEP(*(.boot.bootdata))
+		KEEP(*(.boot.vectors))
+		KEEP(*(.startup))
+		*(.progmem*)
+		. = ALIGN(4);
+        KEEP(*(.init))
+        /*__preinit_array_start = .;*/
+        KEEP(*(.preinit_array))
+        /*__preinit_array_end = .;*/
+        /*__init_array_start = .;*/
+        KEEP(*(.init_array))
+        /*__init_array_end = .;*/
+        . = ALIGN(16);
+    } > flash
+/*
 	.interrupts : {
 		. = ALIGN(4);
 		KEEP(*(.isr_vector))
 		. = ALIGN(4);
-	} > itcm /* AT > flash */
-
-	.text.code : {
-		*(.flashmem*)
-		. = ALIGN(4);
-		KEEP(*(.init))
-		KEEP(*(.preinit_array))
-		KEEP(*(.init_array))
-		. = ALIGN(4);
-	} > flash
-
-	.text.progmem : {
-		*(.progmem*)
-		. = ALIGN(4);
-	} > flash
-
+	} > itcm
+*/
 	.text.itcm : {
 		. = . + 32; /* MPU to trap NULL pointer deref */
 		*(.fastrun)
@@ -46,50 +47,32 @@ SECTIONS {
 		. = ALIGN(16);
 	} > itcm AT > flash
 
-	.ARM.exidx : {
-		*(.ARM.exidx* .ARM.extab.text*)
-	} > itcm AT > flash
-
-	.text.csf : {
-		. = ALIGN(1024);
-		KEEP(*(.csf))
-		__text_csf_end = .;
-	} > flash
-
 	.data : {
-		*(.data)
 		*(.rodata*)
-		*(.data.*)
+        *(.data*)
+        . = ALIGN(16);
 		KEEP(*(.vectorsram))
 	} > dtcm AT > flash
-
+/*
     .tdata : ALIGN(__tls_align) {
         *(.tdata .tdata.*)
 		__data_end = .;
     } > dtcm AT > flash
-
-	.bss (NOLOAD) : {
-		*(.sbss*)
-		*(.bss .bss.*)
-		. = ALIGN(32);
-		. = . + 32; /* MPU to trap stack overflow */
-        __bss_end = .;
-	} > dtcm AT > flash
+*/
+	.bss : {
+		. = ALIGN(4);
+        *(.bss*)
+        *(COMMON)
+        . = ALIGN(32);
+        . = . + 32; /* MPU to trap stack overflow */
+	} > dtcm
 
 	.bss.dma (NOLOAD) : {
-		*(.hab_log)
 		*(.dmabuffers)
 		. = ALIGN(32);
 	} > sram
 
-    .tbss (NOLOAD) : {
-		*(.tbss .tbss.*)
-		*(.tcommon)
-		__tls_end = .;
-	} > dtcm AT > flash
-
 	.swift5 : {
-		*(COMMON)
 		. = ALIGN(4);
 		__start_swift5_protocols = .;
 		*(swift5_protocols*)
@@ -146,18 +129,24 @@ SECTIONS {
 		__start_swift5_runtime_attributes = .;
 		*(swift5_runtime_attributes*)
 		__stop_swift5_runtime_attributes = .;
-	} > flash
-
+	} > sram
+/*
+    .tbss (NOLOAD) : {
+		*(.tbss .tbss.*)
+		*(.tcommon)
+		__tls_end = .;
+	} > dtcm AT > flash
+*/
 	/DISCARD/ : { *(.ARM.*) }
 
+/*
     __data_start = ADDR(.data);
     __data_source = LOADADDR(.data);
     __data_size = LOADADDR(.tdata) - ADDR(.data);
     __arm32_tls_tcb_offset = MAX(8, __tls_align);
-    __bss_start = ADDR(.tbss);
-    __bss_size = __bss_end - __bss_start;
     __tls_base = ADDR(.tdata);
     __tls_align = MAX(ALIGNOF(.tdata), ALIGNOF(.tbss));
+*/
 
     _stext = ADDR(.text.itcm);
 	_etext = ADDR(.text.itcm) + SIZEOF(.text.itcm) + SIZEOF(.ARM.exidx);
@@ -177,5 +166,5 @@ SECTIONS {
 	_flexram_bank_config = 0xAAAAAAAA | ((1 << (_itcm_block_count * 2)) - 1);
 	_estack = ORIGIN(dtcm) + ((16 - _itcm_block_count) << 15);
 
-	_flashimagelen = __text_csf_end - ORIGIN(flash);
+	_flashimagelen = SIZEOF(.boot) + SIZEOF(.text.itcm) + SIZEOF(.data);
 }

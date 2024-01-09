@@ -29,7 +29,7 @@ list(APPEND TOOLCHAIN_COMMON_FLAGS
 list(APPEND TOOLCHAIN_LINKER_FLAGS
   --print-memory-usage
   --gc-sections
-# --trace
+  --trace
 # --cref
 # -v
 )
