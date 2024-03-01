@@ -4,22 +4,26 @@ list(JOIN TOOLCHAIN_COMMON_FLAGS " " TOOLCHAIN_COMMON_FLAGS)
 list(JOIN TOOLCHAIN_LINKER_FLAGS " -Wl," TOOLCHAIN_LINKER_FLAGS)
 list(JOIN TOOLCHAIN_Swift_FLAGS " " TOOLCHAIN_Swift_FLAGS)
 
-set(TOOLCHAIN_COMPILER_FLAGS "${TOOLCHAIN_BOARD_FLAGS} ${TOOLCHAIN_COMMON_FLAGS} -D${TOOLCHAIN_DEFINES_FLAGS}")
-set(TOOLCHAIN_LINKER_FLAGS "${TOOLCHAIN_BOARD_FLAGS} -Wl,${TOOLCHAIN_LINKER_FLAGS} -L${linker} -T${CMAKE_CURRENT_LIST_DIR}/../../${LINKER_SCRIPT}")
+if(NOT "${TOOLCHAIN_DEFINES_FLAGS}" STREQUAL "" AND NOT "${TOOLCHAIN_DEFINES_FLAGS}" MATCHES "^-D.*$")
+    set(TOOLCHAIN_DEFINES_FLAGS "-D${TOOLCHAIN_DEFINES_FLAGS}")
+endif()
 
-set(AR "llvm-ar")
-set(CMAKE_Swift_FLAGS "${TOOLCHAIN_Swift_FLAGS} -clang-target ${TARGET}")
-set(CMAKE_Swift_COMPILER_TARGET "thumbv7em-unknown-none-eabihf")
-set(CMAKE_Swift_COMPILER_WORKS YES)
+if(NOT "${TOOLCHAIN_LINKER_FLAGS}" STREQUAL "" AND NOT "${TOOLCHAIN_LINKER_FLAGS}" MATCHES "^-W.*$")
+    set(TOOLCHAIN_LINKER_FLAGS "-Wl,${TOOLCHAIN_LINKER_FLAGS}")
+endif()
 
-set(CMAKE_C_FLAGS "${TOOLCHAIN_COMPILER_FLAGS} -O3 -Wall -Wunused-command-line-argument") # -Wextra
+set(COMPILER_FLAGS "${TOOLCHAIN_BOARD_FLAGS} ${TOOLCHAIN_COMMON_FLAGS} ${TOOLCHAIN_DEFINES_FLAGS}")
+set(LINKER_FLAGS "${TOOLCHAIN_BOARD_FLAGS} ${TOOLCHAIN_LINKER_FLAGS} -L${linker} -T${linker}/${LINKER_SCRIPT}")
+
+set(CMAKE_Swift_FLAGS "${TOOLCHAIN_Swift_FLAGS} -parse-stdlib -nostdimport")
+set(CMAKE_Swift_COMPILER_TARGET ${TARGET_Swift})
+
+set(CMAKE_C_FLAGS "${COMPILER_FLAGS} -O3 -Wall -Wunused-command-line-argument") # -Wextra
 set(CMAKE_C_COMPILER_TARGET ${TARGET})
 
-set(CMAKE_CXX_FLAGS "${TOOLCHAIN_COMPILER_FLAGS} -fno-unwind-tables -fno-exceptions -fpermissive -fno-threadsafe-statics -Wno-error=narrowing")
+set(CMAKE_CXX_FLAGS "${COMPILER_FLAGS} -fno-unwind-tables -fno-exceptions -fpermissive -fno-threadsafe-statics -Wno-error=narrowing")
 set(CMAKE_CXX_COMPILER_TARGET ${TARGET})
 
-set(CMAKE_ASM_FLAGS "${TOOLCHAIN_COMPILER_FLAGS}")
+set(CMAKE_ASM_FLAGS "${COMPILER_FLAGS}")
 
-set(CMAKE_EXE_LINKER_FLAGS "${TOOLCHAIN_LINKER_FLAGS} -lc -lm -lcrt0")
-
-# "arm-unknown-none-eabihf" "thumbv7em-unknown-none-eabihf" "armv7-apple-none-macho"
+set(CMAKE_EXE_LINKER_FLAGS "${LINKER_FLAGS} -lc -lm -lcrt0")
