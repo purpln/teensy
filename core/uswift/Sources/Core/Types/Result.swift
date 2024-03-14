@@ -1,3 +1,4 @@
+/*
 @frozen
 public enum Result<Success, Failure: Error> {
     case success(Success)
@@ -74,3 +75,4 @@ extension Result {
         }
     }
 }
+*/

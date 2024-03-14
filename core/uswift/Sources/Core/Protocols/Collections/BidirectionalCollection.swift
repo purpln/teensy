@@ -1,3 +1,4 @@
+/*
 public protocol BidirectionalCollection: Collection
     where SubSequence: BidirectionalCollection, Indices: BidirectionalCollection {
     override var indices: Indices { get }
@@ -13,9 +14,9 @@ public protocol BidirectionalCollection: Collection
     func index(_ i: Index, offsetBy distance: Int) -> Index
     
     @_nonoverride
-    func index(_ i: Index, offsetBy distance: Int, limitedBy limit: Index)
-    -> Index?
+    func index(_ i: Index, offsetBy distance: Int, limitedBy limit: Index) -> Index?
     
     @_nonoverride
     func distance(from start: Index, to end: Index) -> Int
 }
+*/

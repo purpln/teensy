@@ -1,3 +1,4 @@
+/*
 @frozen
 public struct ObjectIdentifier: Sendable {
     @usableFromInline
@@ -27,3 +28,4 @@ extension ObjectIdentifier: Comparable {
         return UInt(bitPattern: lhs) < UInt(bitPattern: rhs)
     }
 }
+*/

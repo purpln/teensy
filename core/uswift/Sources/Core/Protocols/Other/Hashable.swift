@@ -1,7 +1,13 @@
 public protocol Hashable: Equatable {
     //var hashValue: Int { get }
 
-    //func hash(into hasher: inout Hasher)
+    func hash(into hasher: inout Hasher)
+}
+
+extension Hashable {
+    public func hash(into hasher: inout Hasher) {
+        
+    }
 }
 
 /*

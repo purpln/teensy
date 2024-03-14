@@ -7,11 +7,13 @@ public protocol SignedNumeric: Numeric {
 extension SignedNumeric {
     @_transparent
     public static prefix func - (operand: Self) -> Self {
-        0 - self
+        var result = operand
+        result.negate()
+        return result
     }
-
+    
     @_transparent
     public mutating func negate() {
-        self = -self
+        self = 0 - self
     }
 }

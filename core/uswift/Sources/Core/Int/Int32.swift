@@ -69,6 +69,8 @@ extension Int32: Equatable {
 extension Int32: ExpressibleByIntegerLiteral {}
 
 extension Int32: Numeric {
+    public var magnitude: Magnitude { 0 }
+
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
         let (result, overflow) = Builtin.smul_with_overflow_Int32(lhs._value, rhs._value, true._value)

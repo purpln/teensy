@@ -1,3 +1,4 @@
+/*
 public protocol Identifiable<ID> {
     associatedtype ID: Hashable
     var id: ID { get }
@@ -8,3 +9,4 @@ extension Identifiable where Self: AnyObject {
         return ObjectIdentifier(self)
     }
 }
+*/

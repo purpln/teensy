@@ -15,7 +15,7 @@ endif()
 set(COMPILER_FLAGS "${TOOLCHAIN_BOARD_FLAGS} ${TOOLCHAIN_COMMON_FLAGS} ${TOOLCHAIN_DEFINES_FLAGS}")
 set(LINKER_FLAGS "${TOOLCHAIN_BOARD_FLAGS} ${TOOLCHAIN_LINKER_FLAGS} -L${linker} -T${linker}/${LINKER_SCRIPT}")
 
-set(CMAKE_Swift_FLAGS "${TOOLCHAIN_Swift_FLAGS} -parse-stdlib -nostdimport")
+set(CMAKE_Swift_FLAGS "${TOOLCHAIN_Swift_FLAGS} -clang-target ${TARGET} -parse-stdlib -nostdimport")
 set(CMAKE_Swift_COMPILER_TARGET ${TARGET_Swift})
 
 set(CMAKE_C_FLAGS "${COMPILER_FLAGS} -O3 -Wall -Wunused-command-line-argument") # -Wextra

@@ -1,14 +1,9 @@
-public protocol Collection: Sequence {
+public protocol Collection<Element>: Sequence {
     associatedtype Iterator
     
     associatedtype Index: Comparable
-    associatedtype Indices: Collection where Indices.Element == Index,
-                                             Indices.Index == Index,
-                                             Indices.SubSequence == Indices
-    
-    associatedtype SubSequence: Collection where SubSequence.Index == Index,
-                                                 Element == SubSequence.Element,
-                                                 SubSequence.SubSequence == SubSequence
+    associatedtype Indices: Collection where Indices.Element == Index, Indices.Index == Index, Indices.SubSequence == Indices
+    associatedtype SubSequence: Collection where SubSequence.Index == Index, Element == SubSequence.Element, SubSequence.SubSequence == SubSequence
     
     var startIndex: Index { get }
     var endIndex: Index { get }

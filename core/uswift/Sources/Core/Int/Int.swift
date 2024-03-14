@@ -69,6 +69,8 @@ extension Int: Equatable {
 extension Int: ExpressibleByIntegerLiteral {}
 
 extension Int: Numeric {
+    public var magnitude: Magnitude { 0 }
+    
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
         let (result, overflow) = Builtin.smul_with_overflow_Word(lhs._value, rhs._value, true._value)
@@ -134,3 +136,63 @@ extension Int {
         preconditionFailure("llvm funcs")
     }
 }
+
+extension Int {
+    @_transparent
+    public static func &>> (lhs: Self, rhs: Self) -> Self {
+        return Int(Builtin.lshr_Word(lhs._value, rhs._value))
+    }
+
+    @_transparent
+    public static func &<< (lhs: Self, rhs: Self) -> Self {
+        return Int(Builtin.shl_Word(lhs._value, rhs._value))
+    }
+}
+/*
+extension Int {
+    @frozen
+    public struct Words: RandomAccessCollection, Sendable {
+        public typealias Indices = Range<Int>
+        public typealias SubSequence = Slice<Int.Words>
+
+    @usableFromInline
+    internal var _value: Int
+
+    @inlinable
+    public init(_ value: Int) {
+      self._value = value
+    }
+
+    @inlinable
+    public var count: Int {
+      return (${bits} + ${word_bits} - 1) / ${word_bits}
+    }
+
+    @inlinable
+    public var startIndex: Int { return 0 }
+
+    @inlinable
+    public var endIndex: Int { return count }
+
+    @inlinable
+    public var indices: Indices { return startIndex ..< endIndex }
+
+    @_transparent
+    public func index(after i: Int) -> Int { return i + 1 }
+
+    @_transparent
+    public func index(before i: Int) -> Int { return i - 1 }
+
+    @inlinable
+    public subscript(position: Int) -> UInt {
+      get {
+        _precondition(position >= 0, "Negative word index")
+        _precondition(position < endIndex, "Word index out of range")
+        let shift = UInt(position._value) &* ${word_bits}
+        _internalInvariant(shift < UInt(_value.bitWidth._value))
+        return (_value &>> ${Self}(_truncatingBits: shift))._lowWord
+      }
+    }
+  }
+}
+*/

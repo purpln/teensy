@@ -32,7 +32,7 @@ extension Optional: Equatable where Wrapped: Equatable {
         return !(lhs == rhs)
     }
 }
-
+/*
 extension Optional: Hashable where Wrapped: Hashable {
     @inlinable
     public func hash(into hasher: inout Hasher) {
@@ -45,7 +45,7 @@ extension Optional: Hashable where Wrapped: Hashable {
         }
     }
 }
-
+*/
 extension Optional {
     @inlinable
     public func map<U>(_ transform: (Wrapped) throws -> U) rethrows -> U? {

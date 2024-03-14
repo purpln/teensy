@@ -54,4 +54,5 @@ list(APPEND TOOLCHAIN_LINKER_FLAGS
     --print-memory-usage
     --gc-sections
     --trace
+    -Map=output.map
 )

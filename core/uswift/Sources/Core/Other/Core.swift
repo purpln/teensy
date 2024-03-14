@@ -22,7 +22,7 @@ internal func preconditionFailure(_ message: StaticString = StaticString(), file
     precondition(false, message, file: file, line: line)
     conditionallyUnreachable()
 }
-
+/*
 @_transparent
 @usableFromInline
 internal func == (lhs: Builtin.NativeObject, rhs: Builtin.NativeObject) -> Bool {
@@ -62,6 +62,7 @@ public func == (t0: Any.Type?, t1: Any.Type?) -> Bool {
 public func != (t0: Any.Type?, t1: Any.Type?) -> Bool {
     return !(t0 == t1)
 }
+*/
 /*
 @_alwaysEmitIntoClient
 @_transparent
@@ -73,12 +74,14 @@ public func _specialize<T, U>(_ x: T, for: U.Type) -> U? {
     return result
 }
 */
+/*
 @_transparent
 @_semantics("typechecker.type(of:)")
 public func type<T, Metatype>(of value: T) -> Metatype {
     Builtin.staticReport(trueAfterDiagnostics(), true._value, StaticString("internal consistency error: 'type(of:)' operation failed to resolve").unsafeRawPointer)
     Builtin.unreachable()
 }
+*/
 /*
 @_alwaysEmitIntoClient
 @_transparent
@@ -88,7 +91,7 @@ public func withoutActuallyEscaping<ClosureType, ResultType, Failure>(_ closure:
     Builtin.unreachable()
 }
 */
-
+/*
 @_transparent
 public func unsafeReferenceCast<T, U>(_ x: T, to: U.Type) -> U {
     return Builtin.castReference(x)
@@ -106,7 +109,7 @@ public func unsafeBitCast<T, U>(_ x: T, to type: U.Type) -> U {
     precondition(MemoryLayout<T>.size == MemoryLayout<U>.size, "Can't unsafeBitCast between types of different sizes")
     return Builtin.reinterpretCast(x)
 }
-
+*/
 @_silgen_name("swift_getFunctionFullNameFromMangledName")
 public func _getFunctionFullNameFromMangledNameImpl(_ mangledName: UnsafePointer<UInt8>, _ mangledNameLength: UInt) -> (UnsafePointer<UInt8>, UInt)
 
@@ -137,3 +140,38 @@ public func _unsafePerformance<T>(_ c: () -> T) -> T {
 func _rethrowsViaClosure(_ fn: () throws -> ()) rethrows {
     try fn()
 }
+/*
+@inlinable
+@inline(__always)
+internal func _roundUpImpl(_ offset: UInt, toAlignment alignment: Int) -> UInt {
+    _internalInvariant(alignment > 0)
+    _internalInvariant(_isPowerOf2(alignment))
+    // Note, given that offset is >= 0, and alignment > 0, we don't
+    // need to underflow check the -1, as it can never underflow.
+    let x = offset + UInt(bitPattern: alignment) &- 1
+    // Note, as alignment is a power of 2, we'll use masking to efficiently
+    // get the aligned value
+    return x & ~(UInt(bitPattern: alignment) &- 1)
+}
+
+@inlinable
+internal func _roundUp(_ offset: UInt, toAlignment alignment: Int) -> UInt {
+    return _roundUpImpl(offset, toAlignment: alignment)
+}
+
+@inlinable
+internal func _roundUp(_ offset: Int, toAlignment alignment: Int) -> Int {
+    _internalInvariant(offset >= 0)
+    let offset = UInt(bitPattern: offset)
+    let result = Int(bitPattern: _roundUpImpl(offset, toAlignment: alignment))
+    _internalInvariant(result >= 0)
+    return result
+}
+
+@inlinable
+@inline(__always)
+public func _getUnsafePointerToStoredProperties(_ x: AnyObject) -> UnsafeMutableRawPointer {
+    let storedPropertyOffset = _roundUp(MemoryLayout<SwiftShims.HeapObject>.size, toAlignment: MemoryLayout<Optional<AnyObject>>.alignment)
+    return UnsafeMutableRawPointer(Builtin.bridgeToRawPointer(x)) + storedPropertyOffset
+}
+*/

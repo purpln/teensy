@@ -1,5 +1,6 @@
 // COMPILER_INTRINSIC
 
+// Optional
 @_transparent
 public func _diagnoseUnexpectedNilOptional(_filenameStart: Builtin.RawPointer,
                                            _filenameLength: Builtin.Word,
@@ -32,6 +33,7 @@ public func _undefined<T>(_ message: @autoclosure () -> StaticString = StaticStr
     preconditionFailure(message(), file: file, line: line)
 }
 
+// enum
 @inline(never)
 @usableFromInline
 internal func _diagnoseUnexpectedEnumCaseValue<SwitchedValue, RawValue>(type: SwitchedValue.Type, rawValue: RawValue) -> Never {
@@ -44,6 +46,7 @@ internal func _diagnoseUnexpectedEnumCase<SwitchedValue>(type: SwitchedValue.Typ
     Builtin.int_trap()
 }
 
+// Pointer
 @_transparent
 public func _convertPointerToPointerArgument<FromPointer: _Pointer, ToPointer: _Pointer>(_ from: FromPointer) -> ToPointer {
     return ToPointer(from._rawValue)

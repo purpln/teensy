@@ -1,4 +1,4 @@
-file(GLOB sources *.swift */*.swift)
+file(GLOB sources *.swift */*.swift */*/*.swift)
 add_library(swiftCore ${sources})
 set_target_properties(swiftCore PROPERTIES Swift_MODULE_NAME Swift)
 target_compile_options(swiftCore PRIVATE -parse-stdlib -Xfrontend -enable-resilience)

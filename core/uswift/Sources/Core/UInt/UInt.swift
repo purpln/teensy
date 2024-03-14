@@ -69,6 +69,8 @@ extension UInt: Equatable {
 extension UInt: ExpressibleByIntegerLiteral {}
 
 extension UInt: Numeric {
+    public var magnitude: Magnitude { 0 }
+
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
         let (result, overflow) = Builtin.umul_with_overflow_Word(lhs._value, rhs._value, true._value)

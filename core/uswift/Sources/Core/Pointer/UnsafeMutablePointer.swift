@@ -50,7 +50,7 @@ public struct UnsafeMutablePointer<Pointee>: _Pointer {
     public func deallocate() {
         Builtin.deallocRaw(_rawValue, (-1)._value, (0)._value)
     }
-
+    /*
     @inlinable
     public var pointee: Pointee {
         @_transparent unsafeAddress {
@@ -60,6 +60,7 @@ public struct UnsafeMutablePointer<Pointee>: _Pointer {
             return self
         }
     }
+    */
 }
 
 @inlinable

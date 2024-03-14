@@ -18,7 +18,7 @@ extension UnsignedInteger {
 
 extension UnsignedInteger where Self: FixedWidthInteger {
     @_transparent
-    public static var max: Self { return ~0 }
+    public static var max: Self {return ~0 }
     
     @_transparent
     public static var min: Self { return 0 }

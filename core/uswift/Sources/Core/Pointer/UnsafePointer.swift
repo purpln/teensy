@@ -18,7 +18,7 @@ public struct UnsafePointer<Pointee>: _Pointer {
             return self
         }
     }
-
+    /*
     @inlinable
     public subscript(i: Int) -> Pointee {
         @_transparent
@@ -26,4 +26,5 @@ public struct UnsafePointer<Pointee>: _Pointer {
             return self + i
         }
     }
+    */
 }

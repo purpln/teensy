@@ -5,8 +5,8 @@ public struct Float {
 
     @_transparent
     public init() {
-        let zero: Int64 = 0
-        self._value = Builtin.sitofp_Int64_FPIEEE32(zero._value)
+        let zero: Int32 = 0
+        self._value = Builtin.sitofp_Int32_FPIEEE32(zero._value)
     }
     
     @_transparent
@@ -14,7 +14,6 @@ public struct Float {
         self._value = _value
     }
 }
-
 
 extension Float: BinaryFloatingPoint {
     public typealias Magnitude = Float
@@ -81,7 +80,7 @@ extension Float: BinaryFloatingPoint {
     
     @_transparent
     public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
-        return self
+        preconditionFailure("wip")
     }
 
     @_transparent

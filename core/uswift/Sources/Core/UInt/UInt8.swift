@@ -69,6 +69,8 @@ extension UInt8: Equatable {
 extension UInt8: ExpressibleByIntegerLiteral {}
 
 extension UInt8: Numeric {
+    public var magnitude: Magnitude { 0 }
+
     @_transparent
     public static func * (lhs: Self, rhs: Self) -> Self {
         let (result, overflow) = Builtin.umul_with_overflow_Int8(lhs._value, rhs._value, true._value)

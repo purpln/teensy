@@ -12,7 +12,6 @@ public struct Double {
     @_transparent
     public init(_ _value: Builtin.FPIEEE64) {
         self._value = _value
-        malloc(8)
     }
 }
 
@@ -81,7 +80,7 @@ extension Double: BinaryFloatingPoint {
     
     @_transparent
     public func rounded(_ rule: FloatingPointRoundingRule) -> Self {
-        return self
+        preconditionFailure("wip")
     }
 
     @_transparent
