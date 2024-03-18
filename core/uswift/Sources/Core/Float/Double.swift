@@ -5,8 +5,12 @@ public struct Double {
 
     @_transparent
     public init() {
-        let zero: Int64 = 0
-        self._value = Builtin.sitofp_Int64_FPIEEE64(zero._value)
+        //missing __aeabi_l2d & __aeabi_ldivmod
+        let zero: Int32 = 0
+        let float = Builtin.sitofp_Int32_FPIEEE32(zero._value)
+        self._value = Builtin.fpext_FPIEEE32_FPIEEE64(float)
+        //let zero: Int64 = 0
+        //self._value = Builtin.sitofp_Int64_FPIEEE64(zero._value)
     }
     
     @_transparent

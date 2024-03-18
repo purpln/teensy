@@ -42,12 +42,18 @@ list(APPEND TOOLCHAIN_COMMON_FLAGS
     -ffunction-sections
     -fpack-struct
     -fshort-enums
+    #-falign-functions=16
     -fno-builtin
 )
 
-list(APPEND TOOLCHAIN_Swift_FLAGSß
+list(APPEND TOOLCHAIN_Swift_FLAGS
     -use-ld=lld
     -Osize
+    #-wmo
+    -enable-experimental-feature Embedded
+    #-Xfrontend -disable-stack-protector
+    #-Xfrontend -experimental-platform-c-calling-convention=arm_aapcs_vfp
+    #-Xfrontend -function-sections
 )
 
 list(APPEND TOOLCHAIN_LINKER_FLAGS

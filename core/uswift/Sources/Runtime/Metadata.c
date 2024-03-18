@@ -49,25 +49,24 @@ swift_getTypeByMangledNameInContextInMetadataState(size_t metadataState,
                                                    const void *const *genericArgs) {
     return NULL;
 }
-/*
+
 SWIFT_RUNTIME_ABI
 const ValueWitnessTable *
 swift_getAssociatedConformanceWitness(
-                                  WitnessTable *wtable,
+                                  void *wtable,
                                   const Metadata *conformingType,
                                   const Metadata *assocType,
-                                  const ProtocolRequirement *reqBase,
-                                  const ProtocolRequirement *assocConformance) {
+                                  const void *reqBase, //ProtocolRequirement
+                                  const void *assocConformance) { //ProtocolRequirement
     return NULL;
 }
 
 SWIFT_RUNTIME_ABI
-TypeMetadata swift_getAssociatedTypeWitness(
-                                          MetadataRequest request,
-                                          WitnessTable *wtable,
-                                          const Metadata *conformingType,
-                                          const ProtocolRequirement *reqBase,
-                                          const ProtocolRequirement *assocType) {
-    return NULL;
+MetadataResponse
+swift_getAssociatedTypeWitness(MetadataRequest request,
+                               void *wtable, //ValueWitnessTable
+                               const Metadata *conformingType,
+                               const void *reqBase, //ProtocolRequirement
+                               const Metadata *assocType) {
+    return (MetadataResponse){};
 }
-*/
