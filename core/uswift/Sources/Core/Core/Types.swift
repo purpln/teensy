@@ -9,4 +9,4 @@ public typealias AnyObject = Builtin.AnyObject
 
 public typealias AnyClass = AnyObject.Type
 
-public typealias _MaxBuiltinFloatType = Builtin.FPIEEE64
+public typealias MaxBuiltinFloatType = Builtin.FPIEEE64

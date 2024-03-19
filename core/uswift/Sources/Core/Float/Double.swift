@@ -104,7 +104,7 @@ extension Double: BinaryFloatingPoint {
 }
 
 extension Double: _ExpressibleByBuiltinFloatLiteral {
-    public init(_builtinFloatLiteral value: _MaxBuiltinFloatType) {
+    public init(_builtinFloatLiteral value: MaxBuiltinFloatType) {
         _value = value
     }
 }

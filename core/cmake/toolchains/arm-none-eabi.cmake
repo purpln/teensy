@@ -48,8 +48,11 @@ list(APPEND TOOLCHAIN_COMMON_FLAGS
 
 list(APPEND TOOLCHAIN_Swift_FLAGS
     -use-ld=lld
-    -Osize
+    -Onone
     -wmo
+    -enable-experimental-feature Extern
+    -enable-experimental-feature SymbolLinkageMarkers
+    -enable-experimental-feature NoncopyableGenerics
     #-enable-experimental-feature Embedded
     #-Xfrontend -disable-stack-protector
     #-Xfrontend -experimental-platform-c-calling-convention=arm_aapcs_vfp

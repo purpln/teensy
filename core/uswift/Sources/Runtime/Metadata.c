@@ -2,6 +2,7 @@
 #include "Visibility.h"
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 SWIFT_RUNTIME_ABI
 void swift_addNewDSOImage() {}
@@ -51,6 +52,15 @@ swift_getTypeByMangledNameInContextInMetadataState(size_t metadataState,
 }
 
 SWIFT_RUNTIME_ABI
+const BoxPair *
+swift_allocError(const Metadata *type,
+                 const WitnessTable *errorConformance,
+                 OpaqueValue *initialValue,
+                 bool isTake) {
+    return NULL;
+}
+
+SWIFT_RUNTIME_ABI
 const ValueWitnessTable *
 swift_getAssociatedConformanceWitness(
                                   void *wtable,
@@ -59,6 +69,14 @@ swift_getAssociatedConformanceWitness(
                                   const void *reqBase, //ProtocolRequirement
                                   const void *assocConformance) { //ProtocolRequirement
     return NULL;
+}
+
+SWIFT_RUNTIME_ABI
+const void *
+swift_getWitnessTable(const void *conformance,
+                      const void *type,
+                      const void * const *instantiationArgs) {
+    return 0;
 }
 
 SWIFT_RUNTIME_ABI

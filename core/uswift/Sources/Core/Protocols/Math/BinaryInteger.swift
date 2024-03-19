@@ -1,4 +1,4 @@
-public protocol BinaryInteger: CustomStringConvertible, Hashable, Numeric, Strideable where Magnitude: BinaryInteger, Magnitude.Magnitude == Magnitude {
+public protocol BinaryInteger: Hashable, Numeric, CustomStringConvertible, Strideable where Magnitude: BinaryInteger, Magnitude.Magnitude == Magnitude {
     static var isSigned: Bool { get }
     
     var bitWidth: Int { get }

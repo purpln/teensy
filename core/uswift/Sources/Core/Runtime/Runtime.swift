@@ -1,27 +1,9 @@
-@_transparent
-@usableFromInline
-internal func conditionallyUnreachable() -> Never {
-    Builtin.conditionallyUnreachable()
-}
-
 @inlinable
 @inline(__always)
 internal func trueAfterDiagnostics() -> Builtin.Int1 {
     return true._value
 }
 
-@_transparent
-public func precondition(_ condition: @autoclosure () -> Bool, _: StaticString, file _: StaticString = #file, line _: UInt = #line) {
-    let error = !condition()
-    Builtin.condfail_message(error._value, StaticString("precondition failure").unsafeRawPointer)
-}
-
-@_transparent
-@usableFromInline
-internal func preconditionFailure(_ message: StaticString = StaticString(), file: StaticString = #file, line: UInt = #line) -> Never {
-    precondition(false, message, file: file, line: line)
-    conditionallyUnreachable()
-}
 /*
 @_transparent
 @usableFromInline

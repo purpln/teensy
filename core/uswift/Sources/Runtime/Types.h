@@ -12,6 +12,8 @@ typedef struct GenericValueMetadataPattern GenericValueMetadataPattern;
 
 typedef struct HeapObject HeapObject;
 
+typedef struct BoxPair {
+} BoxPair;
 typedef struct MetdataRequest {
 } MetadataRequest;
 typedef struct MetdataResponse {
@@ -31,5 +33,8 @@ typedef struct ValueMetadata ValueMetadata;
 typedef struct ValueTypeDescriptor ValueTypeDescriptor;
 typedef struct ValueWitnessTable {
 } ValueWitnessTable;
+
+typedef struct WitnessTable {
+} WitnessTable;
 
 typedef void(__attribute__((__swiftcall__)) * StoreExtraInhabitantTagFn)(OpaqueValue *value, unsigned store_case, unsigned extra_inhabitants, const Metadata *payload);

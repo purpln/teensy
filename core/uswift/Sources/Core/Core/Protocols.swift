@@ -10,7 +10,7 @@ public protocol ExpressibleByBooleanLiteral {
 
 // Float
 public protocol _ExpressibleByBuiltinFloatLiteral {
-    init(_builtinFloatLiteral value: _MaxBuiltinFloatType)
+    init(_builtinFloatLiteral value: MaxBuiltinFloatType)
 }
 
 public protocol ExpressibleByFloatLiteral {

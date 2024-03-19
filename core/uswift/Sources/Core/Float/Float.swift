@@ -100,7 +100,7 @@ extension Float: BinaryFloatingPoint {
 }
 
 extension Float: _ExpressibleByBuiltinFloatLiteral {
-    public init(_builtinFloatLiteral value: _MaxBuiltinFloatType) {
+    public init(_builtinFloatLiteral value: MaxBuiltinFloatType) {
         _value = Builtin.fptrunc_FPIEEE64_FPIEEE32(value)
     }
 }

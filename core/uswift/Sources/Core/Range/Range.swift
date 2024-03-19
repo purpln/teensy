@@ -48,3 +48,19 @@ extension Range: Hashable where Bound: Hashable {
         hasher.combine(upperBound)
     }
 }
+
+extension Range {
+    @inlinable
+    @inline(__always)
+    public func clamped(to limits: Range) -> Range {
+        let lower =
+            limits.lowerBound > self.lowerBound ? limits.lowerBound
+                : limits.upperBound < self.lowerBound ? limits.upperBound
+                : self.lowerBound
+        let upper =
+            limits.upperBound < self.upperBound ? limits.upperBound
+                : limits.lowerBound > self.upperBound ? limits.lowerBound
+                : self.upperBound
+        return Range(_uncheckedBounds: (lower: lower, upper: upper))
+    }
+}

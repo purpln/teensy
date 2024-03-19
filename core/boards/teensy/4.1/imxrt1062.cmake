@@ -1,5 +1,5 @@
 set(TARGET        thumbv7em-none-unknown-eabihf)
-set(TARGET_Swift  armv7em-none-none-eabihf) #armv7em-none-none-eabihf
+set(TARGET_Swift  armv7em-none-none-eabihf)
 set(LINKER_SCRIPT imxrt1062.ld)
 
 list(APPEND TOOLCHAIN_BOARD_FLAGS

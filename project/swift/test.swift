@@ -38,9 +38,14 @@ public func less(a: CLong, b: CLong) -> CLong {
     (a < b) ? a : b
 }
 
+enum Failure: Error {
+    case fault
+}
+
 @main
 struct Application {
     static func main() throws {
+        throw Failure.fault
         //precondition(false, "failure")
     }
 }
