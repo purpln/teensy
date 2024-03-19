@@ -16,6 +16,7 @@ extern long less(long, long);
 extern long greater(long, long);
 
 extern double test(double, double);
+extern void main();
 
 void transform(float x, char *p) {
     char *s = p + 10; // go to end of buffer
@@ -42,8 +43,9 @@ void transform(float x, char *p) {
 }
 
 void write() {
+    main();
     //long integer = addition(40, 2);
-    double floating = test(0.2, 0.4);
+    double floating = test(0.4, 0.02);
     char text[12] = "          \r\n";
 
     //itoa(integer, text, 10);
@@ -52,7 +54,7 @@ void write() {
     usb_serial_write(text, sizeof(text));
 }
 
-void main() {
+void entry() {
     IOMUXC_SW_MUX_CTL_PAD_GPIO_B0_03 = 5;
     IOMUXC_SW_PAD_CTL_PAD_GPIO_B0_03 = IOMUXC_PAD_DSE(7);
     IOMUXC_GPR_GPR27 = 0xFFFFFFFF;

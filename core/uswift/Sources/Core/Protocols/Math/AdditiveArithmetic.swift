@@ -19,7 +19,7 @@ public extension AdditiveArithmetic {
     }
 
     @_transparent
-    public static prefix func + (x: Self) -> Self {
+    static prefix func + (x: Self) -> Self {
         return x
     }
 }

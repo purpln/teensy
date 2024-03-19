@@ -1,12 +1,6 @@
 @_cdecl("test")
-public func test(a: CDouble, b: CDouble) -> CDouble {
-    let value: Double = 0
-    another(value: value)
-    return a - b
-}
-
-func another(value: Double) {
-    let test: Any = Double(0)
+public func test(a: Double, b: Double) -> Double {
+    a / b
 }
 
 @_cdecl("addition")
@@ -42,4 +36,11 @@ public func greater(a: CLong, b: CLong) -> CLong {
 @_cdecl("less")
 public func less(a: CLong, b: CLong) -> CLong {
     (a < b) ? a : b
+}
+
+@main
+struct Application {
+    static func main() throws {
+        //precondition(false, "failure")
+    }
 }

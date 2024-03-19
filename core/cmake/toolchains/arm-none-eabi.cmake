@@ -49,8 +49,8 @@ list(APPEND TOOLCHAIN_COMMON_FLAGS
 list(APPEND TOOLCHAIN_Swift_FLAGS
     -use-ld=lld
     -Osize
-    #-wmo
-    -enable-experimental-feature Embedded
+    -wmo
+    #-enable-experimental-feature Embedded
     #-Xfrontend -disable-stack-protector
     #-Xfrontend -experimental-platform-c-calling-convention=arm_aapcs_vfp
     #-Xfrontend -function-sections

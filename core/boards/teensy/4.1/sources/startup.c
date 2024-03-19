@@ -32,7 +32,7 @@ extern volatile uint32_t F_CPU_ACTUAL;
 static void memory_copy(uint32_t *dest, const uint32_t *src, uint32_t *dest_end);
 static void memory_clear(uint32_t *dest, uint32_t *dest_end);
 
-extern void main();
+extern void entry();
 extern void clang();
 
 __attribute__((section(".startup")))
@@ -72,7 +72,7 @@ void _reset_handler(void) {
 	configure_systick();
 	set_arm_clock(F_CPU);
 
-    main();
+    entry();
     clang();
 }
 
