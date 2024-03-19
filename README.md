@@ -21,3 +21,80 @@ ninja -C .build
 
 ### Binary
 app.hex
+
+### Standart library features support
+| Core | Status | Priority |
+|------|:------:|---------:|
+| ExpressibleByFloatLiteral | full | |
+| ExpressibleByIntegerLiteral | full | |
+| ExpressibleByStringLiteral | full | |
+| ExpressibleByNilLiteral | full | |
+| ExpressibleByArrayLiteral | none | highest |
+| ExpressibleByDictionaryLiteral | none | average |
+| RawRepresentable | full | |
+| MemoryLayout | partial | |
+
+| Protocols | Status | Priority |
+|-----------|:------:|---------:|
+| Equatable | full | |
+| Comparable | full | |
+| Strideable | full | |
+| Error | minimum | |
+| Hashable | minimum | |
+| Identifiable | minimum | |
+| OptionSet | partial | |
+| SetAlgebra | none | highest |
+| CustomStringConvertible | minimum | |
+| LosslessStringConvertible | minimum | |
+| AdditiveArithmetic | full | |
+| Numeric | mostly | highest |
+| SignedNumeric | full | |
+| BinaryInteger | partial | highest |
+| FixedWidthInteger | mostly | average |
+| UnsignedInteger | full | |
+| SignedInteger | full | |
+| FloatingPoint | partial | average |
+| BinaryFloatingPoint | partial | average |
+| RangeExpression | full | |
+| Collection | partial | |
+| IteratorProtocol | full | |
+| Sequence | partial | |
+| RandomAccessCollection | none | low |
+| BidirectionalCollection | none | low |
+
+| Values | Status | Priority |
+|--------|:------:|---------:|
+| Bool | partial | |
+| Optional | partial | |
+| Int | partial | |
+| Int8 | partial | |
+| Int16 | partial | |
+| Int32 | partial | |
+| Int64 | partial | |
+| UInt | partial | |
+| UInt8 | partial | |
+| UInt16 | partial | |
+| UInt32 | partial | |
+| UInt64 | partial | |
+| Float | partial | |
+| Double | partial | |
+| String | none | average |
+| StaticString | partial | |
+| Array | none | highest |
+| Set | none | average |
+| Range | partial | |
+| ClosedRange | partial | |
+| Result | none | |
+
+| Collection | Status | Priority |
+|------------|:------:|---------:|
+| Slice | none | high |
+
+| Pointer | Status | Priority |
+|---------|:------:|---------:|
+| _Pointer | partial | |
+| OpaquePointer | partial | |
+| UnsafeMutablePointer | partial | |
+| UnsafeMutableRawPointer | partial | |
+| UnsafePointer | partial | |
+| UnsafeRawPointer | partial | |
