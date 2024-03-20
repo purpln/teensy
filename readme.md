@@ -19,6 +19,12 @@ cmake -B .build -G Ninja -S .
 ninja -C .build
 ```
 
+### Testing
+```shell
+~/teensy_loader_cli-master/teensy_loader_cli --mcu=TEENSY41 -w ~/teensy/project/app.hex
+screen /dev/tty.usbmodemnumber1
+```
+
 ### Binary
 app.hex
 
