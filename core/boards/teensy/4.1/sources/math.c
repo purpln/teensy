@@ -1,11 +1,24 @@
 #include "math.h"
 
-#if defined(__arm) || defined(__arm__)
-
 typedef struct {
     unsigned long long quot;
     unsigned long long rem;
 } ulldiv_t;
+
+typedef struct {
+  long long int quot;
+  long long int rem;
+} lldiv_t;
+
+lldiv_t __aeabi_ldivmod(long long, long long) {
+	return (lldiv_t){ 0, 0 };
+}
+
+double __aeabi_l2d(long long) {
+	return 0;
+}
+
+#if defined(__arm) || defined(__arm__)
 
 static uint64_t __aeabi_uldivmod_recursive(uint64_t dividend, uint64_t divisor, uint64_t acc);
 

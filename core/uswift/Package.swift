@@ -5,7 +5,8 @@ import PackageDescription
 let package = Package(
     name: "Swift",
     products: [
-        .library(name: "Swift", targets: ["Core"])
+        .library(name: "Swift", targets: ["Core"]),
+        //.library(name: "_Concurrency", targets: ["_Concurrency"]),
     ],
     targets: [
         //.target(name: "_Concurrency", dependencies: [.target(name: "Core")], swiftSettings: [.unsafeFlags(["-nostdimport", "-parse-stdlib"])]),
@@ -16,7 +17,7 @@ let package = Package(
             .unsafeFlags(["-enable-experimental-feature", "SymbolLinkageMarkers"]),
             .unsafeFlags(["-enable-experimental-feature", "NoncopyableGenerics"]),
             .unsafeFlags(["-enable-experimental-feature", "NonescapableTypes"]),
-            //.unsafeFlags(["-enable-upcoming-feature", "FullTypedThrows"]),
+            .unsafeFlags(["-enable-experimental-feature", "FullTypedThrows"]),
             .unsafeFlags(["-Xfrontend", "-disable-objc-interop"]),
         ]),
         //.target(name: "Onone", dependencies: [.target(name: "Core")], swiftSettings: [.unsafeFlags(["-nostdimport", "-parse-stdlib"])]),

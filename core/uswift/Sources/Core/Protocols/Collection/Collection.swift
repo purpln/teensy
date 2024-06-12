@@ -1,3 +1,9 @@
+public protocol Collection {
+     associatedtype Index: Comparable
+
+     func index(after: Index) -> Index
+}
+/*
 public protocol Collection<Element>: Sequence {
     associatedtype Iterator
     
@@ -22,4 +28,9 @@ public protocol Collection<Element>: Sequence {
     
     func index(after: Index) -> Index
     func formIndex(after: inout Index)
+    
+    func _failEarlyRangeCheck(_ index: Index, bounds: Range<Index>)
+    func _failEarlyRangeCheck(_ index: Index, bounds: ClosedRange<Index>)
+    func _failEarlyRangeCheck(_ range: Range<Index>, bounds: Range<Index>)
 }
+*/

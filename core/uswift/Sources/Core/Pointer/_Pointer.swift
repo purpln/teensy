@@ -1,4 +1,4 @@
-public protocol _Pointer { //Hashable, Strideable
+public protocol _Pointer: Strideable { //Hashable
     typealias Distance = Int
     
     associatedtype Pointee
@@ -115,14 +115,14 @@ extension _Pointer {
         return Self(Builtin.gep_Word(self._rawValue, n._value, Pointee.self))
     }
 }
-
+/*
 extension _Pointer {
     @inlinable
     public func hash(into hasher: inout Hasher) {
         hasher.combine(UInt(bitPattern: self))
     }
 }
-
+*/
 extension Int {
     @_transparent
     public init<P: _Pointer>(bitPattern pointer: P?) {
@@ -144,7 +144,7 @@ extension UInt {
         }
     }
 }
-/*
+
 extension Strideable where Self: _Pointer {
     @_transparent
     public static func + (@_nonEphemeral lhs: Self, rhs: Self.Stride) -> Self {
@@ -176,4 +176,3 @@ extension Strideable where Self: _Pointer {
         lhs = lhs.advanced(by: -rhs)
     }
 }
-*/

@@ -1,6 +1,9 @@
 public protocol BinaryInteger: Hashable, Numeric, CustomStringConvertible, Strideable where Magnitude: BinaryInteger, Magnitude.Magnitude == Magnitude {
     static var isSigned: Bool { get }
     
+    //associatedtype Words: RandomAccessCollection where Words.Element == UInt, Words.Index == Int
+    //var words: Words { get }
+    
     var bitWidth: Int { get }
     
     static prefix func ~ (x: Self) -> Self

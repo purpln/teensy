@@ -36,9 +36,10 @@ extension RandomAccessCollection {
 
 extension RandomAccessCollection where Index: Strideable, Index.Stride == Int {
     @_implements(Collection, Indices)
-    public typealias _Default_Indices = Range<Index>
+    public typealias DefaultIndices = Range<Index>
 }
-
+*/
+/*
 extension RandomAccessCollection where Index: Strideable, Index.Stride == Int, Indices == Range<Index> {
     @inlinable
     public var indices: Range<Index> {

@@ -1,6 +1,5 @@
 /*
-public protocol BidirectionalCollection: Collection
-    where SubSequence: BidirectionalCollection, Indices: BidirectionalCollection {
+public protocol BidirectionalCollection: Collection where SubSequence: BidirectionalCollection, Indices: BidirectionalCollection {
     override var indices: Indices { get }
     
     override subscript(_: Range<Index>) -> SubSequence { get }

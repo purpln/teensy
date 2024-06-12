@@ -1,3 +1,3 @@
-@_marker public protocol Sendable: ~Copyable, ~Escapable { //~Copyable, ~Escapable
+@_marker public protocol Sendable: ~Copyable, ~Escapable {
     
 }

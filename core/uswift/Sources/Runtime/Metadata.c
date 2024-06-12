@@ -8,6 +8,17 @@ SWIFT_RUNTIME_ABI
 void swift_addNewDSOImage() {}
 
 SWIFT_RUNTIME_ABI
+bool swift_dynamicCast(
+    OpaqueValue *dest,
+    OpaqueValue *src,
+    const Metadata *srcType,
+    const Metadata *targetType,
+    void *flags
+) {
+    return true;
+}
+
+SWIFT_RUNTIME_ABI
 ValueMetadata *swift_allocateGenericValueMetadata(
     const ValueTypeDescriptor *descriptor, const void *arguments,
     const GenericValueMetadataPattern *pattern, size_t extra) {
@@ -40,6 +51,26 @@ void swift_initStructMetadata(StructMetadata *self, StructLayoutFlags flags,
                               size_t numFields,
                               const TypeLayout * const *fieldTypes,
                               uint32_t *fieldOffsets) {}
+
+SWIFT_RUNTIME_ABI
+const TypeMetadata *
+swift_getTypeByMangledNameInContext2(
+                        const char *typeNameStart,
+                        size_t typeNameLength,
+                        const void *context, 
+                        const void * const *genericArgs) {
+    return NULL;
+}
+
+SWIFT_RUNTIME_ABI
+const TypeMetadata *
+swift_getTypeByMangledNameInContextInMetadataState2(size_t metadataState,
+                                                   const char *typeNameStart, 
+                                                   size_t typeNameLength,
+                                                   const void *context, 
+                                                   const void *const *genericArgs) {
+    return NULL;
+}
 
 SWIFT_RUNTIME_ABI
 const TypeMetadata *

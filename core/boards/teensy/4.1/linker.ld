@@ -10,10 +10,6 @@ ENTRY(_reset_handler)
 SECTIONS {
     __stack = ORIGIN(sram) + LENGTH(sram);
 
-	.ARM.exidx : {
-		*(.ARM.exidx* .ARM.extab.text*)
-	} > itcm AT > flash
-
     .boot : {
         KEEP(*(.boot.conf))
 		/*FILL(0x00)*/
@@ -29,6 +25,18 @@ SECTIONS {
         KEEP(*(.init_array))
         . = ALIGN(16);
     } > flash
+
+	.ARM.extab : {
+        *(.ARM.extab*)
+    } > itcm AT > flash
+
+
+	.ARM.exidx : {
+		. = ALIGN(4);
+		__exidx_start = .;
+		*(.ARM.exidx* .ARM.extab.text*)
+		__exidx_end = .;
+	} > itcm AT > flash
 
 	.text.itcm : {
 		. = . + 32; /* MPU to trap NULL pointer deref */
@@ -53,12 +61,14 @@ SECTIONS {
         . = ALIGN(32);
         . = . + 32; /* MPU to trap stack overflow */
 	} > dtcm
+
 	/*
 	.bss.dma : {
 		*(.dmabuffers)
 		. = ALIGN(32);
 	} > sram
 	*/
+
 	.swift5 : {
 		. = ALIGN(4);
 		__start_swift5_protocols = .;
@@ -136,7 +146,9 @@ SECTIONS {
 		__stop_swift5_runtime_attributes = .;
 	} > itcm AT > flash
 
-	/DISCARD/ : { *(.ARM.*) }
+	/DISCARD/ : {
+		*(.ARM.*);
+	}
 	
     _stext = ADDR(.text.itcm);
 	_etext = ADDR(.text.itcm) + SIZEOF(.text.itcm) + SIZEOF(.ARM.exidx);

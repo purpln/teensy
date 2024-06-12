@@ -33,6 +33,14 @@ internal func preconditionFailure(_ message: StaticString = StaticString(), file
 internal func minAllocationAlignment() -> Int {
     return 16
 }
+
+@inlinable
+@_transparent
+public func unsafeBitCast<T, U>(_ x: T, to type: U.Type) -> U {
+    precondition(MemoryLayout<T>.size == MemoryLayout<U>.size, "Can't unsafeBitCast between types of different sizes")
+    return Builtin.reinterpretCast(x)
+}
+
 /*
 @_extern(c, "arc4random_buf")
 func arc4random_buf(buf: UnsafeMutableRawPointer, nbytes: Int)

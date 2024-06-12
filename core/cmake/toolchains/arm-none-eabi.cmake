@@ -38,6 +38,7 @@ list(APPEND TOOLCHAIN_BOARD_FLAGS
 list(APPEND TOOLCHAIN_COMMON_FLAGS
     -fdata-sections
     -ffreestanding
+    #-fexceptions
     -funsigned-char
     -ffunction-sections
     -fpack-struct
@@ -50,9 +51,15 @@ list(APPEND TOOLCHAIN_Swift_FLAGS
     -use-ld=lld
     -Onone
     -wmo
+    #-dump-ast
+    #-output-file-map=outputmap.json
+    #-Xfrontend 
+    #-emit-supported-features
     -enable-experimental-feature Extern
+    -enable-experimental-feature BorrowingSwitch
     -enable-experimental-feature SymbolLinkageMarkers
     -enable-experimental-feature NoncopyableGenerics
+    -enable-experimental-feature FullTypedThrows
     #-enable-experimental-feature Embedded
     #-Xfrontend -disable-stack-protector
     #-Xfrontend -experimental-platform-c-calling-convention=arm_aapcs_vfp

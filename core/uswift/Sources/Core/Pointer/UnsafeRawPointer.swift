@@ -44,8 +44,6 @@ public struct UnsafeRawPointer: _Pointer {
 
     @inlinable
     public func deallocate() {
-        let size: Int = -1
-        let alignment: Int = 0
         Builtin.deallocRaw(_rawValue, (-1)._value, (0)._value)
     }
     

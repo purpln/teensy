@@ -1,3 +1,5 @@
+public typealias _MaxBuiltinFloatType = Builtin.FPIEEE64
+
 public typealias IntegerLiteralType = Int
 public typealias FloatLiteralType = Double
 
